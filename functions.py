@@ -171,20 +171,91 @@ def pangram(input_text: str):
         print('given text is not pangram')
 
 
-pangram('A quick brown fox jumps over the lazy dog')
-pangram('Just keep examining every low bid quoted for zinc etchings.')
-pangram(text_sample)
+# pangram('A quick brown fox jumps over the lazy dog')
+# pangram('Just keep examining every low bid quoted for zinc etchings.')
+# pangram(text_sample)
 
 # 15. Write a Python program that accepts a hyphen-separated sequence of words
 # as input and prints the words in a hyphen-separated
 # sequence after sorting them alphabetically.
+def hypen_sep(input_text: str):
+    sorted_text = sorted([word.lower() for word in input_text.split('-')])
+    return print('-'.join(sorted_text))
 
+
+# hypen_sep('When-he-shall-die')
+# hypen_sep('Take-him-and-cut-him-out-in-little-stars')
+# hypen_sep('And-he-will-make-the-face-of-heaven-so-fine')
+# hypen_sep('That-all-the-world-will-be-in-love-with-night')
+# hypen_sep('And-pay-no-worship-to-the-garish-sun')
 
 # 16. Write a Python function to create and print a list where the values
 # are square of numbers between 1 and 30 (both included).
+def squares_function():
+    print([x ** 2 for x in range(1, 31)])
+
+
+# squares_function()
+
 # 17. Write a Python program to make a chain of function decorators
 # (bold, italic, underline etc.) in Python.
+
+def chain_bold(text: str):
+    def bolded():
+        return '\033[1m' + text()
+
+    return bolded
+
+
+def chain_italic(text: str):
+    def italic():
+        return '\x1B[3m' + text()
+
+    return italic
+
+
+def chain_underline(text: str):
+    def underline():
+        return '\033[4m' + text()
+
+    return underline
+
+
+@chain_bold
+@chain_italic
+@chain_underline
+def text_sample():
+    return 'This is sample text to test chain of decorators'
+
+
+# print(text_sample())
+
 # 18. Write a Python program to execute a string containing Python code.
+
+sample_code = 'print("One Ring to rule them all")'
+# exec(sample_code)
+sample_code = """
+x,y = 1,8
+print(x + y)"""
+# exec(sample_code)
+
 # 19. Write a Python program to access a function inside a function.
+def outside_function(x):
+    def inside_function(x):
+        return x**2
+    result = inside_function(x)
+    return result
+
+# print(outside_function(62))
+
 # 20. Write a Python program to detect the number of local variables
 # declared in a function.
+
+def detector():
+    a = 1
+    b = 'text'
+    c = [1, 2, 3]
+    d = (7, 8, 10)
+    e = {'a':'b'}
+
+# print(detector.__code__.co_nlocals)
